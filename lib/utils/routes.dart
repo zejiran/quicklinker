@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:quicklinker/views/home_screen.dart';
+import 'package:quicklinker/views/home/home_screen.dart';
 
 class Routes {
   static const String home = '/';

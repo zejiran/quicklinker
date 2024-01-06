@@ -20,6 +20,7 @@ dependencies:
   connectivity: ^3.0.6
   audioplayers: ^5.2.1
   lottie: ^2.7.0
+  shimmer: ^3.0.0
 
 dev_dependencies:
   flutter_test:
