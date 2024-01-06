@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:quicklinker/theme/style.dart';
 import 'view_models/url_view_model.dart';
 import 'views/home_screen.dart';
 
@@ -16,7 +17,7 @@ class QuickLinkerApp extends StatelessWidget {
       create: (context) => UrlViewModel(),
       child: MaterialApp(
         title: 'Link Shortener',
-        theme: ThemeData(primarySwatch: Colors.blue),
+        theme: appTheme(),
         home: const HomeScreen(),
       ),
     );
