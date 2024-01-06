@@ -21,8 +21,12 @@ class UrlViewModel with ChangeNotifier {
 
   void shortenUrl(String originalUrl) async {
     var shortUrl = await _shortenerService.shortenUrl(originalUrl);
-    var urlModel = UrlModel(originalUrl: originalUrl, shortUrl: shortUrl);
-    _urls.add(urlModel);
+    var urlModel = UrlModel(
+      originalUrl: originalUrl,
+      shortUrl: shortUrl,
+      timestamp: DateTime.now(),
+    );
+    _urls.insert(0, urlModel);
     await _databaseService.insertLink(urlModel);
     notifyListeners();
   }
