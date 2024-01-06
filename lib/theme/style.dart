@@ -1,15 +1,13 @@
 import 'package:flutter/material.dart';
 
-ThemeData appTheme() {
+ThemeData getAppTheme() {
   return ThemeData(
     useMaterial3: true,
     colorScheme: lightColorScheme,
     fontFamily: 'Roboto',
     snackBarTheme: SnackBarThemeData(
       backgroundColor: lightColorScheme.primary,
-      contentTextStyle: const TextStyle(
-        color: Colors.white,
-      ),
+      contentTextStyle: const TextStyle(color: Colors.white),
       actionTextColor: Colors.white,
     ),
   );
