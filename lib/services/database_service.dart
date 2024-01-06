@@ -13,11 +13,15 @@ class DatabaseService {
 
   Future<Database> initDB() async {
     String path = join(await getDatabasesPath(), 'shortened_links.db');
-    return await openDatabase(path, version: 1, onCreate: (db, version) async {
-      await db.execute(
-        'CREATE TABLE Links (originalUrl TEXT, shortUrl TEXT, timestamp TEXT)',
-      );
-    });
+    return await openDatabase(
+      path,
+      version: 1,
+      onCreate: (db, version) async {
+        await db.execute(
+          'CREATE TABLE Links (originalUrl TEXT, shortUrl TEXT, timestamp TEXT)',
+        );
+      },
+    );
   }
 
   Future<void> insertLink(UrlModel url) async {
