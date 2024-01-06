@@ -16,7 +16,7 @@ class QuickLinkerApp extends StatelessWidget {
     return ChangeNotifierProvider(
       create: (context) => UrlViewModel(),
       child: MaterialApp(
-        title: 'QuickLinker - Link Shortener',
+        title: 'QuickLinker',
         theme: getAppTheme(),
         routes: Routes.getRoutes(),
         initialRoute: Routes.home,

@@ -9,9 +9,9 @@ class UrlShortenerService {
       body: json.encode({'url': url}),
     );
 
-    if (response.statusCode == 201) {
+    if (response.statusCode == 201 || response.statusCode == 200) {
       var data = json.decode(response.body);
-      return data['short'];
+      return data['_links']['short'];
     } else {
       throw Exception('Failed to shorten URL');
     }
