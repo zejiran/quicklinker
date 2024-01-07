@@ -1,20 +1,55 @@
 import 'package:flutter/material.dart';
 import 'package:quicklinker/models/url_model.dart';
 import 'package:quicklinker/services/audio_player_service.dart';
+import 'package:quicklinker/services/connectivity_service.dart';
 import 'package:quicklinker/services/database_service.dart';
 import 'package:quicklinker/services/url_shortener_service.dart';
+import 'package:quicklinker/theme/style.dart';
+import 'package:quicklinker/utils/snack_bar_util.dart';
 
 class UrlViewModel with ChangeNotifier {
   final UrlShortenerService _shortenerService = UrlShortenerService();
   final DatabaseService _databaseService = DatabaseService();
+  final ConnectivityService _connectivityService = ConnectivityService();
+  late BuildContext context;
   List<UrlModel> _urls = [];
   bool _isLoading = false;
+  bool _isConnected = false;
 
   List<UrlModel> get urls => _urls;
+
   bool get isLoading => _isLoading;
 
-  UrlViewModel() {
+  bool get isConnected => _isConnected;
+
+  UrlViewModel(this.context) {
     _loadShortenedUrls();
+    _initializeConnectivity();
+  }
+
+  @override
+  void dispose() {
+    _connectivityService.dispose();
+    super.dispose();
+  }
+
+  Future<void> _initializeConnectivity() async {
+    _isConnected = await _connectivityService.checkConnectivity();
+    _connectivityService.onConnectivityChanged.listen((bool isConnected) {
+      _isConnected = isConnected;
+      _showConnectivityMessage();
+      notifyListeners();
+    });
+  }
+
+  void _showConnectivityMessage() {
+    SnackBarUtil.showSnackBar(
+      context,
+      _isConnected
+          ? 'Internet has returned, continue shortening new links.'
+          : 'No internet connection available, but you can continue visualizing your previously shortened URLs.',
+      backgroundColor: lightColorScheme.secondaryContainer,
+    );
   }
 
   void _loadShortenedUrls() async {

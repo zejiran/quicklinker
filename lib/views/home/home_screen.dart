@@ -14,68 +14,85 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final viewModel = Provider.of<UrlViewModel>(context);
-    final TextEditingController urlController = TextEditingController();
+    return ChangeNotifierProvider(
+        create: (_) => UrlViewModel(context),
+        child: Consumer<UrlViewModel>(builder: (context, viewModel, child) {
+          final TextEditingController urlController = TextEditingController();
 
-    return Scaffold(
-      appBar: AppBar(
-        title: const Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          mainAxisAlignment: MainAxisAlignment.center,
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Text('QuickLinker'),
-            Text(
-              'Shorten your links quickly and easily',
-              style: TextStyle(fontSize: 12, fontWeight: FontWeight.w300),
-            ),
-          ],
-        ),
-        centerTitle: true,
-      ),
-      body: Padding(
-        padding: const EdgeInsets.all(16),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            UrlInputField(controller: urlController),
-            const SizedBox(height: 15),
-            ShortenButton(
-              onPressed: () {
-                if (isValidUrl(urlController.text)) {
-                  String url = urlController.text.trim();
-                  url = ensureHttpPrefix(url);
-                  viewModel.shortenUrl(url);
-                } else {
-                  ErrorSnackBar.showError(context, 'Please enter a valid URL.');
-                }
-              },
-            ),
-            const SizedBox(height: 30),
-            const Text(
-              'Recently Shortened URLs',
-              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-              textAlign: TextAlign.center,
-            ),
-            const SizedBox(height: 4),
-            const Text(
-              'Tap to copy, swipe to delete',
-              style: TextStyle(
-                fontSize: 14,
-                fontWeight: FontWeight.normal,
-                fontStyle: FontStyle.italic,
+          return Scaffold(
+            appBar: AppBar(
+              title: const Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.center,
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Text('QuickLinker'),
+                  Text(
+                    'Shorten your links quickly and easily',
+                    style: TextStyle(
+                      fontSize: 12,
+                      fontWeight: FontWeight.w300,
+                    ),
+                  ),
+                ],
               ),
-              textAlign: TextAlign.center,
+              centerTitle: true,
             ),
-            const SizedBox(height: 15),
-            Expanded(
-              child: viewModel.isLoading
-                  ? const ShimmerLoading()
-                  : const UrlList(),
+            body: Padding(
+              padding: const EdgeInsets.all(16),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  UrlInputField(
+                    controller: urlController,
+                    enabled: viewModel.isConnected,
+                  ),
+                  const SizedBox(height: 15),
+                  ShortenButton(
+                    onPressed: viewModel.isConnected
+                        ? () {
+                            if (isValidUrl(urlController.text)) {
+                              String url = urlController.text.trim();
+                              url = ensureHttpPrefix(url);
+                              viewModel.shortenUrl(url);
+                            } else {
+                              ErrorSnackBar.showError(
+                                context,
+                                'Please enter a valid URL.',
+                              );
+                            }
+                          }
+                        : null,
+                  ),
+                  const SizedBox(height: 30),
+                  const Text(
+                    'Recently Shortened URLs',
+                    style: TextStyle(
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold,
+                    ),
+                    textAlign: TextAlign.center,
+                  ),
+                  const SizedBox(height: 4),
+                  const Text(
+                    'Tap to copy, swipe to delete',
+                    style: TextStyle(
+                      fontSize: 14,
+                      fontWeight: FontWeight.normal,
+                      fontStyle: FontStyle.italic,
+                    ),
+                    textAlign: TextAlign.center,
+                  ),
+                  const SizedBox(height: 15),
+                  Expanded(
+                    child: viewModel.isLoading
+                        ? const ShimmerLoading()
+                        : const UrlList(),
+                  ),
+                ],
+              ),
             ),
-          ],
-        ),
-      ),
-    );
+          );
+        }));
   }
 }

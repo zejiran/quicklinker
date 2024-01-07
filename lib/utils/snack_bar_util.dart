@@ -12,6 +12,7 @@ class SnackBarUtil {
         SnackBar(
           content: Text(message),
           backgroundColor: backgroundColor ?? Theme.of(context).primaryColor,
+          duration: const Duration(seconds: 6),
         ),
       );
   }

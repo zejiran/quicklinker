@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 import 'package:quicklinker/services/database_service.dart';
 import 'package:quicklinker/theme/style.dart';
 import 'package:quicklinker/utils/routes.dart';
-import 'view_models/url_view_model.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -16,14 +14,11 @@ class QuickLinkerApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider(
-      create: (context) => UrlViewModel(),
-      child: MaterialApp(
-        title: 'QuickLinker',
-        theme: getAppTheme(),
-        routes: Routes.getRoutes(),
-        initialRoute: Routes.home,
-      ),
+    return MaterialApp(
+      title: 'QuickLinker',
+      theme: getAppTheme(),
+      routes: Routes.getRoutes(),
+      initialRoute: Routes.home,
     );
   }
 }
