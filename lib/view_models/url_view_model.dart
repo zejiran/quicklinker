@@ -31,7 +31,7 @@ class UrlViewModel with ChangeNotifier {
       timestamp: DateTime.now(),
     );
     _urls.insert(0, urlModel);
-    await _databaseService.insertLink(urlModel);
+    _databaseService.insertLink(urlModel);
     setLoading(false);
   }
 
