@@ -14,7 +14,7 @@ class UrlViewModel with ChangeNotifier {
   late BuildContext context;
   List<UrlModel> _urls = [];
   bool _isLoading = false;
-  bool _isConnected = false;
+  bool _isConnected = true;
 
   List<UrlModel> get urls => _urls;
 
@@ -34,12 +34,19 @@ class UrlViewModel with ChangeNotifier {
   }
 
   Future<void> _initializeConnectivity() async {
-    _isConnected = await _connectivityService.checkConnectivity();
+    bool initialConnectivity = await _connectivityService.checkConnectivity();
+
     _connectivityService.onConnectivityChanged.listen((bool isConnected) {
-      _isConnected = isConnected;
-      _showConnectivityMessage();
-      notifyListeners();
+      if (_isConnected != isConnected) {
+        _isConnected = isConnected;
+        _showConnectivityMessage();
+      }
     });
+
+    _isConnected = initialConnectivity;
+    if (!_isConnected) {
+      _showConnectivityMessage();
+    }
   }
 
   void _showConnectivityMessage() {
@@ -51,6 +58,7 @@ class UrlViewModel with ChangeNotifier {
           : 'No internet connection available, but you can continue visualizing your previously shortened URLs.',
       backgroundColor: lightColorScheme.secondaryContainer,
     );
+    notifyListeners();
   }
 
   void _loadShortenedUrls() async {

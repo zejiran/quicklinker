@@ -11,32 +11,38 @@ class UrlEntrySection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final viewModel = Provider.of<UrlViewModel>(context);
     final TextEditingController urlController = TextEditingController();
-    bool isEnabled = viewModel.isConnected;
 
-    void onShortenPressed() {
-      if (isValidUrl(urlController.text)) {
-        String url = urlController.text.trim();
-        url = ensureHttpPrefix(url);
-        viewModel.shortenUrl(url);
-      } else {
-        ErrorSnackBar.showError(
-          context,
-          'Please enter a valid URL.',
+    return Consumer<UrlViewModel>(
+      builder: (context, viewModel, child) {
+        void onShortenPressed() {
+          if (isValidUrl(urlController.text)) {
+            String url = urlController.text.trim();
+            url = ensureHttpPrefix(url);
+            viewModel.shortenUrl(url);
+          } else {
+            ErrorSnackBar.showError(
+              context,
+              'Please enter a valid URL.',
+            );
+          }
+        }
+
+        return Column(
+          children: <Widget>[
+            UrlInputField(
+              controller: urlController,
+              enabled: viewModel.isConnected,
+            ),
+            const SizedBox(height: 15),
+            ShortenLinkButton(
+              onPressed:
+                  viewModel.isConnected ? () => onShortenPressed() : null,
+            ),
+            const SizedBox(height: 30),
+          ],
         );
-      }
-    }
-
-    return Column(
-      children: <Widget>[
-        UrlInputField(controller: urlController, enabled: isEnabled),
-        const SizedBox(height: 15),
-        ShortenLinkButton(
-          onPressed: isEnabled ? () => onShortenPressed() : null,
-        ),
-        const SizedBox(height: 30),
-      ],
+      },
     );
   }
 }
