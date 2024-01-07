@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
-class ShortenButton extends StatelessWidget {
+class ShortenLinkButton extends StatelessWidget {
   final VoidCallback? onPressed;
 
-  const ShortenButton({super.key, required this.onPressed});
+  const ShortenLinkButton({super.key, required this.onPressed});
 
   @override
   Widget build(BuildContext context) {

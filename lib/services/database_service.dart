@@ -1,5 +1,5 @@
 import 'package:hive_flutter/hive_flutter.dart';
-import 'package:quicklinker/models/url_model.dart';
+import 'package:quicklinker/models/url/url_model.dart';
 
 class DatabaseService {
   static const String _boxName = 'shortened_urls';

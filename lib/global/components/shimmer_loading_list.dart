@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:shimmer/shimmer.dart';
 
-class ShimmerLoading extends StatelessWidget {
+class ShimmerLoadingList extends StatelessWidget {
   final int itemCount;
 
-  const ShimmerLoading({super.key, this.itemCount = 9});
+  const ShimmerLoadingList({super.key, this.itemCount = 9});
 
   @override
   Widget build(BuildContext context) {

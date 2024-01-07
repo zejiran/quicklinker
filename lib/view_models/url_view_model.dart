@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:quicklinker/models/url_model.dart';
+import 'package:quicklinker/models/url/url_model.dart';
 import 'package:quicklinker/services/audio_player_service.dart';
 import 'package:quicklinker/services/connectivity_service.dart';
 import 'package:quicklinker/services/database_service.dart';

@@ -5,8 +5,8 @@ import 'package:quicklinker/services/audio_player_service.dart';
 import 'package:quicklinker/utils/snack_bar_util.dart';
 import 'package:quicklinker/view_models/url_view_model.dart';
 
-class UrlList extends StatelessWidget {
-  const UrlList({super.key});
+class ShortenedUrlList extends StatelessWidget {
+  const ShortenedUrlList({super.key});
 
   @override
   Widget build(BuildContext context) {
