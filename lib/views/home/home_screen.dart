@@ -17,18 +17,26 @@ class HomeScreen extends StatelessWidget {
     final viewModel = Provider.of<UrlViewModel>(context);
     final TextEditingController urlController = TextEditingController();
 
-    final baseColor = Colors.grey[300]!;
-    final highlightColor = Colors.grey[100]!;
-
     return Scaffold(
-      appBar: AppBar(title: const Text('Link Shortener')),
+      appBar: AppBar(
+        title: const Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text('QuickLinker'),
+            Text(
+              'Shorten your links quickly and easily',
+              style: TextStyle(fontSize: 14, fontWeight: FontWeight.w300),
+            ),
+          ],
+        ),
+      ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             UrlInputField(controller: urlController),
-            const SizedBox(height: 10),
+            const SizedBox(height: 15),
             ShortenButton(
               onPressed: () {
                 if (isValidUrl(urlController.text)) {
@@ -38,18 +46,26 @@ class HomeScreen extends StatelessWidget {
                 }
               },
             ),
-            const SizedBox(height: 20),
+            const SizedBox(height: 25),
             const Text(
               'Recently Shortened URLs',
               style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+              textAlign: TextAlign.center,
             ),
-            const SizedBox(height: 10),
+            const SizedBox(height: 4),
+            const Text(
+              'Swipe to delete, tap to copy',
+              style: TextStyle(
+                fontSize: 14,
+                fontWeight: FontWeight.normal,
+                fontStyle: FontStyle.italic,
+              ),
+              textAlign: TextAlign.center,
+            ),
+            const SizedBox(height: 15),
             Expanded(
               child: viewModel.isLoading
-                  ? ShimmerLoading(
-                      baseColor: baseColor,
-                      highlightColor: highlightColor,
-                    )
+                  ? const ShimmerLoading()
                   : const UrlList(),
             ),
           ],

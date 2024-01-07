@@ -3,21 +3,14 @@ import 'package:shimmer/shimmer.dart';
 
 class ShimmerLoading extends StatelessWidget {
   final int itemCount;
-  final Color baseColor;
-  final Color highlightColor;
 
-  const ShimmerLoading({
-    super.key,
-    this.itemCount = 6,
-    required this.baseColor,
-    required this.highlightColor,
-  });
+  const ShimmerLoading({super.key, this.itemCount = 6});
 
   @override
   Widget build(BuildContext context) {
     return Shimmer.fromColors(
-      baseColor: baseColor,
-      highlightColor: highlightColor,
+      baseColor: Colors.grey[300]!,
+      highlightColor: Colors.grey[100]!,
       enabled: true,
       child: ListView.builder(
         itemCount: itemCount,
