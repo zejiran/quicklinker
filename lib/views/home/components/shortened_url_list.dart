@@ -26,9 +26,35 @@ class ShortenedUrlList extends StatelessWidget {
           },
           background: Container(
             color: Colors.red,
-            alignment: Alignment.centerRight,
-            padding: const EdgeInsets.symmetric(horizontal: 20.0),
-            child: const Icon(Icons.delete, color: Colors.white),
+            child: const Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 20.0),
+                  child: Icon(Icons.delete, color: Colors.white),
+                ),
+                Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 20.0),
+                  child: Text('Delete', style: TextStyle(color: Colors.white)),
+                ),
+              ],
+            ),
+          ),
+          secondaryBackground: Container(
+            color: Colors.red,
+            child: const Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 20.0),
+                  child: Text('Delete', style: TextStyle(color: Colors.white)),
+                ),
+                Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 20.0),
+                  child: Icon(Icons.delete, color: Colors.white),
+                ),
+              ],
+            ),
           ),
           child: ListTile(
             leading: const Icon(Icons.link, size: 25),
