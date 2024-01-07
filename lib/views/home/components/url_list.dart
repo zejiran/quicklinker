@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
-import 'package:audioplayers/audioplayers.dart';
+import 'package:quicklinker/services/audio_player_service.dart';
 import 'package:quicklinker/view_models/url_view_model.dart';
 
 class UrlList extends StatelessWidget {
@@ -10,7 +10,6 @@ class UrlList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final viewModel = Provider.of<UrlViewModel>(context);
-    final audioPlayer = AudioPlayer();
 
     return ListView.separated(
       itemCount: viewModel.urls.length,
@@ -21,7 +20,7 @@ class UrlList extends StatelessWidget {
         return Dismissible(
           key: Key(url.shortUrl),
           onDismissed: (direction) async {
-            audioPlayer.play(AssetSource('sounds/delete.m4a'));
+            AudioPlayerService.play('sounds/delete.m4a');
             viewModel.deleteUrl(url);
           },
           background: Container(
