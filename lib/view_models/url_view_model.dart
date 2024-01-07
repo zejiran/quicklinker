@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:quicklinker/models/url_model.dart';
+import 'package:quicklinker/services/audio_player_service.dart';
 import 'package:quicklinker/services/database_service.dart';
 import 'package:quicklinker/services/url_shortener_service.dart';
 
@@ -33,6 +34,7 @@ class UrlViewModel with ChangeNotifier {
     _urls.insert(0, urlModel);
     _databaseService.insertLink(urlModel);
     setLoading(false);
+    AudioPlayerService.play('sounds/simple_celebration_01.wav');
   }
 
   void deleteUrl(UrlModel url) async {

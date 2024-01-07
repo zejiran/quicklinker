@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 import 'package:quicklinker/services/audio_player_service.dart';
+import 'package:quicklinker/utils/snack_bar_util.dart';
 import 'package:quicklinker/view_models/url_view_model.dart';
 
 class UrlList extends StatelessWidget {
@@ -35,8 +36,10 @@ class UrlList extends StatelessWidget {
             subtitle: Text(url.shortUrl),
             onTap: () {
               Clipboard.setData(ClipboardData(text: url.shortUrl));
-              ScaffoldMessenger.of(context).showSnackBar(
-                SnackBar(content: Text('Copied to clipboard: ${url.shortUrl}')),
+              AudioPlayerService.play('sounds/simple_celebration_02.wav');
+              SnackBarUtil.showSnackBar(
+                context,
+                'Copied to clipboard: ${url.shortUrl}',
               );
             },
           ),
