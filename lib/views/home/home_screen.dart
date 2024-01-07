@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:quicklinker/utils/url_utils.dart';
 import 'package:quicklinker/view_models/url_view_model.dart';
 
+import 'components/error_snack_bar.dart';
 import 'components/shimmer_loading.dart';
 import 'components/shorten_button.dart';
 import 'components/url_input_field.dart';
@@ -29,8 +31,10 @@ class HomeScreen extends StatelessWidget {
             const SizedBox(height: 10),
             ShortenButton(
               onPressed: () {
-                if (urlController.text.isNotEmpty) {
+                if (isValidUrl(urlController.text)) {
                   viewModel.shortenUrl(urlController.text);
+                } else {
+                  ErrorSnackBar.showError(context, 'Please enter a valid URL.');
                 }
               },
             ),
