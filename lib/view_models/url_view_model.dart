@@ -43,6 +43,7 @@ class UrlViewModel with ChangeNotifier {
   }
 
   void _showConnectivityMessage() {
+    AudioPlayerService.play('sounds/notification_simple_01.wav');
     SnackBarUtil.showSnackBar(
       context,
       _isConnected
