@@ -17,6 +17,14 @@ class ShortenedUrlList extends StatelessWidget {
       separatorBuilder: (context, index) => const Divider(),
       itemBuilder: (context, index) {
         final url = viewModel.urls[index];
+        const maxTitleLength = 60;
+
+        String shortenTitle(String title) {
+          if (title.length > maxTitleLength) {
+            return '${title.substring(0, maxTitleLength)}...';
+          }
+          return title;
+        }
 
         return Dismissible(
           key: Key(url.shortUrl),
@@ -24,41 +32,11 @@ class ShortenedUrlList extends StatelessWidget {
             AudioPlayerService.play('sounds/delete.m4a');
             viewModel.deleteUrl(url);
           },
-          background: Container(
-            color: Colors.red,
-            child: const Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 20.0),
-                  child: Icon(Icons.delete, color: Colors.white),
-                ),
-                Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 20.0),
-                  child: Text('Delete', style: TextStyle(color: Colors.white)),
-                ),
-              ],
-            ),
-          ),
-          secondaryBackground: Container(
-            color: Colors.red,
-            child: const Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 20.0),
-                  child: Text('Delete', style: TextStyle(color: Colors.white)),
-                ),
-                Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 20.0),
-                  child: Icon(Icons.delete, color: Colors.white),
-                ),
-              ],
-            ),
-          ),
+          background: buildDismissBackground(),
+          secondaryBackground: buildDismissBackground(isSecondary: true),
           child: ListTile(
             leading: const Icon(Icons.link, size: 25),
-            title: Text(url.originalUrl),
+            title: Text(shortenTitle(url.originalUrl)),
             subtitle: Text(url.shortUrl),
             onTap: () {
               Clipboard.setData(ClipboardData(text: url.shortUrl));
@@ -71,6 +49,34 @@ class ShortenedUrlList extends StatelessWidget {
           ),
         );
       },
+    );
+  }
+
+  Widget buildDismissBackground({bool isSecondary = false}) {
+    return Container(
+      color: Colors.red,
+      child: Row(
+        mainAxisAlignment:
+            isSecondary ? MainAxisAlignment.end : MainAxisAlignment.start,
+        children: [
+          if (!isSecondary) ...[
+            const Padding(
+              padding: EdgeInsets.symmetric(horizontal: 20.0),
+              child: Icon(Icons.delete, color: Colors.white),
+            ),
+          ],
+          const Padding(
+            padding: EdgeInsets.symmetric(horizontal: 20.0),
+            child: Text('Delete', style: TextStyle(color: Colors.white)),
+          ),
+          if (isSecondary) ...[
+            const Padding(
+              padding: EdgeInsets.symmetric(horizontal: 20.0),
+              child: Icon(Icons.delete, color: Colors.white),
+            ),
+          ],
+        ],
+      ),
     );
   }
 }
