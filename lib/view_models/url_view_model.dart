@@ -32,7 +32,8 @@ class UrlViewModel with ChangeNotifier {
       timestamp: DateTime.now(),
     );
     _urls.insert(0, urlModel);
-    _databaseService.insertLink(urlModel);
+    await _databaseService.insertLink(urlModel);
+    _loadShortenedUrls();
     setLoading(false);
     AudioPlayerService.play('sounds/simple_celebration_01.wav');
   }

@@ -1,56 +1,34 @@
-import 'package:path/path.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 import 'package:quicklinker/models/url_model.dart';
-import 'package:sqflite/sqflite.dart';
 
 class DatabaseService {
-  Database? _database;
+  static const String _boxName = 'shortened_urls';
 
-  Future<Database> get database async {
-    if (_database != null) return _database!;
-    _database = await initDB();
-    return _database!;
+  static Future<void> initHive() async {
+    await Hive.initFlutter();
+    Hive.registerAdapter(UrlModelAdapter());
+    await Hive.openBox<UrlModel>(_boxName);
   }
 
-  Future<Database> initDB() async {
-    String path = join(await getDatabasesPath(), 'shortened_links.db');
-    return await openDatabase(
-      path,
-      version: 1,
-      onCreate: (db, version) async {
-        await db.execute(
-          'CREATE TABLE Links (originalUrl TEXT, shortUrl TEXT, timestamp TEXT)',
-        );
-      },
-    );
+  Box<UrlModel> get _box {
+    return Hive.box<UrlModel>(_boxName);
   }
 
   Future<void> insertLink(UrlModel url) async {
-    final db = await database;
-    await db.insert(
-      'Links',
-      url.toMap(),
-      conflictAlgorithm: ConflictAlgorithm.replace,
-    );
+    await _box.put(url.shortUrl, url);
   }
 
   Future<List<UrlModel>> getLinks() async {
-    final db = await database;
-    final List<Map<String, dynamic>> maps = await db.query(
-      'Links',
-      orderBy: 'timestamp DESC',
-      limit: 15,
-    );
-    return List.generate(maps.length, (i) {
-      return UrlModel.fromMap(maps[i]);
-    });
+    var links = _box.values.toList();
+    links.sort((a, b) => b.timestamp.compareTo(a.timestamp));
+    return links;
   }
 
   Future<void> deleteLink(UrlModel url) async {
-    final db = await database;
-    await db.delete(
-      'Links',
-      where: 'shortUrl = ?',
-      whereArgs: [url.shortUrl],
-    );
+    await _box.delete(url.shortUrl);
+  }
+
+  Future<void> closeBox() async {
+    await _box.close();
   }
 }
