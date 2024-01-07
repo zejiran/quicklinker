@@ -35,6 +35,11 @@ class UrlViewModel with ChangeNotifier {
     setLoading(false);
   }
 
+  void deleteUrl(UrlModel url) async {
+    await _databaseService.deleteLink(url);
+    _loadShortenedUrls();
+  }
+
   void setLoading(bool loading) {
     _isLoading = loading;
     notifyListeners();

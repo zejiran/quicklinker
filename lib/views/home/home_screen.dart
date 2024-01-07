@@ -50,7 +50,7 @@ class HomeScreen extends StatelessWidget {
                       baseColor: baseColor,
                       highlightColor: highlightColor,
                     )
-                  : UrlList(urls: viewModel.urls),
+                  : const UrlList(),
             ),
           ],
         ),

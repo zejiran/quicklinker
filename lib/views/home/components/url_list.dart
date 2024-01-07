@@ -1,23 +1,34 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:quicklinker/models/url_model.dart';
+import 'package:provider/provider.dart';
+import 'package:audioplayers/audioplayers.dart';
+import 'package:quicklinker/view_models/url_view_model.dart';
 
 class UrlList extends StatelessWidget {
-  final List<UrlModel> urls;
-
-  const UrlList({super.key, required this.urls});
+  const UrlList({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final viewModel = Provider.of<UrlViewModel>(context);
+    final audioPlayer = AudioPlayer();
+
     return ListView.separated(
-      itemCount: urls.length,
+      itemCount: viewModel.urls.length,
       separatorBuilder: (context, index) => const Divider(),
       itemBuilder: (context, index) {
-        UrlModel url = urls[index];
-        return Container(
-          decoration: BoxDecoration(
-            color: Colors.white.withOpacity(0.3),
-            borderRadius: BorderRadius.circular(15),
+        final url = viewModel.urls[index];
+
+        return Dismissible(
+          key: Key(url.shortUrl),
+          onDismissed: (direction) async {
+            audioPlayer.play(AssetSource('sounds/delete.m4a'));
+            viewModel.deleteUrl(url);
+          },
+          background: Container(
+            color: Colors.red,
+            alignment: Alignment.centerRight,
+            padding: const EdgeInsets.symmetric(horizontal: 20.0),
+            child: const Icon(Icons.delete, color: Colors.white),
           ),
           child: ListTile(
             leading: const Icon(Icons.link, size: 25),
@@ -26,9 +37,7 @@ class UrlList extends StatelessWidget {
             onTap: () {
               Clipboard.setData(ClipboardData(text: url.shortUrl));
               ScaffoldMessenger.of(context).showSnackBar(
-                SnackBar(
-                  content: Text('Copied to clipboard: ${url.shortUrl}'),
-                ),
+                SnackBar(content: Text('Copied to clipboard: ${url.shortUrl}')),
               );
             },
           ),

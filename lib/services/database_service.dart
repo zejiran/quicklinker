@@ -38,10 +38,19 @@ class DatabaseService {
     final List<Map<String, dynamic>> maps = await db.query(
       'Links',
       orderBy: 'timestamp DESC',
-      limit: 10,
+      limit: 15,
     );
     return List.generate(maps.length, (i) {
       return UrlModel.fromMap(maps[i]);
     });
+  }
+
+  Future<void> deleteLink(UrlModel url) async {
+    final db = await database;
+    await db.delete(
+      'Links',
+      where: 'shortUrl = ?',
+      whereArgs: [url.shortUrl],
+    );
   }
 }
