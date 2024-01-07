@@ -40,7 +40,9 @@ class HomeScreen extends StatelessWidget {
             ShortenButton(
               onPressed: () {
                 if (isValidUrl(urlController.text)) {
-                  viewModel.shortenUrl(urlController.text);
+                  String url = urlController.text.trim();
+                  url = ensureHttpPrefix(url);
+                  viewModel.shortenUrl(url);
                 } else {
                   ErrorSnackBar.showError(context, 'Please enter a valid URL.');
                 }
