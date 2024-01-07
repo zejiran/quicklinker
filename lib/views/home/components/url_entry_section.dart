@@ -20,6 +20,7 @@ class UrlEntrySection extends StatelessWidget {
             String url = urlController.text.trim();
             url = ensureHttpPrefix(url);
             viewModel.shortenUrl(url);
+            urlController.clear();
           } else {
             ErrorSnackBar.showError(
               context,
