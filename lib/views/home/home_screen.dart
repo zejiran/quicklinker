@@ -20,18 +20,21 @@ class HomeScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisSize: MainAxisSize.min,
           children: [
             Text('QuickLinker'),
             Text(
               'Shorten your links quickly and easily',
-              style: TextStyle(fontSize: 14, fontWeight: FontWeight.w300),
+              style: TextStyle(fontSize: 12, fontWeight: FontWeight.w300),
             ),
           ],
         ),
+        centerTitle: true,
       ),
       body: Padding(
-        padding: const EdgeInsets.all(16.0),
+        padding: const EdgeInsets.all(16),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
@@ -48,7 +51,7 @@ class HomeScreen extends StatelessWidget {
                 }
               },
             ),
-            const SizedBox(height: 25),
+            const SizedBox(height: 30),
             const Text(
               'Recently Shortened URLs',
               style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
@@ -56,7 +59,7 @@ class HomeScreen extends StatelessWidget {
             ),
             const SizedBox(height: 4),
             const Text(
-              'Swipe to delete, tap to copy',
+              'Tap to copy, swipe to delete',
               style: TextStyle(
                 fontSize: 14,
                 fontWeight: FontWeight.normal,
