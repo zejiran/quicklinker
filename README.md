@@ -1,6 +1,6 @@
 # QuickLinker - A Flutter URL Shortening Application
 
-![QuickLinker Logo](assets/icons/quicklinker-logo.png)
+<img src="assets/icons/quicklinker-logo.png" alt="QuickLinker Logo" width="200"/>
 
 ## Introduction
 
@@ -28,7 +28,7 @@ offline modes, enhancing the overall user experience.
 
 ### Reactive State Management
 
-The application embraces reactive state management through `ChangeNotifierProvider` and Consumer
+The application embraces reactive state management through `ChangeNotifierProvider` and `Consumer`
 widgets, which ties the UI closely with the ViewModel. This design pattern ensures that the UI
 reacts to the state changes in the ViewModel, maintaining a clear and reactive user interface.
 
