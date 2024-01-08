@@ -17,6 +17,7 @@ dependencies:
   shimmer: ^3.0.0
   hive: ^2.2.3
   hive_flutter: ^1.1.0
+  flutter_native_splash: ^2.3.9
 
 dev_dependencies:
   flutter_test:
@@ -30,6 +31,12 @@ flutter_launcher_icons:
   android: "launcher_icon"
   ios: true
   image_path: "assets/icons/quicklinker-logo.png"
+
+flutter_native_splash:
+  color: '#4808c9'
+  image: assets/icons/quicklinker-logo.png
+  android_12:
+    image: assets/icons/quicklinker-logo.png
 
 flutter:
   uses-material-design: true
