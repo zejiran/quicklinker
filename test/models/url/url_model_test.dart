@@ -28,6 +28,10 @@ void main() {
 
     tearDownAll(() async {
       await Hive.close();
+      final directory = Directory('${Directory.current.path}/test/hive_testing_dir');
+      if (await directory.exists()) {
+        await directory.delete(recursive: true);
+      }
     });
   });
 }
