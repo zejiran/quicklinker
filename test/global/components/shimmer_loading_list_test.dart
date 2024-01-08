@@ -5,8 +5,7 @@ import 'package:shimmer/shimmer.dart';
 
 void main() {
   group('ShimmerLoadingList Tests', () {
-    testWidgets('ShimmerLoadingList builds correct number of items',
-        (WidgetTester tester) async {
+    testWidgets('builds correct number of items', (WidgetTester tester) async {
       const testItemCount = 5;
 
       await tester.pumpWidget(
