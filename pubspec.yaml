@@ -33,7 +33,7 @@ flutter_launcher_icons:
   image_path: "assets/icons/quicklinker-logo.png"
 
 flutter_native_splash:
-  color: '#4808c9'
+  color: '#0c0735'
   image: assets/icons/quicklinker-logo.png
   android_12:
     image: assets/icons/quicklinker-logo.png
