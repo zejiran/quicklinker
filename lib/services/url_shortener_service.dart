@@ -1,10 +1,19 @@
-import 'package:http/http.dart' as http;
 import 'dart:convert';
 
+import 'package:http/http.dart' as http;
+
 class UrlShortenerService {
+  static const String _baseUrl =
+      'https://url-shortener-server.onrender.com/api/alias';
+
+  // Warm up the server to avoid cold starts, useful for serverless platforms like Render
+  static Future<void> warmUpServer() async {
+    await http.get(Uri.parse('$_baseUrl/random-id'));
+  }
+
   Future<String> shortenUrl(String url) async {
     var response = await http.post(
-      Uri.parse('https://url-shortener-server.onrender.com/api/alias'),
+      Uri.parse(_baseUrl),
       headers: {'Content-Type': 'application/json'},
       body: json.encode({'url': url}),
     );

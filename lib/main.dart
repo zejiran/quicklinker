@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:quicklinker/services/connectivity_service.dart';
 import 'package:quicklinker/services/database_service.dart';
+import 'package:quicklinker/services/url_shortener_service.dart';
 import 'package:quicklinker/theme/style.dart';
 import 'package:quicklinker/utils/routes.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await DatabaseService.initHive();
+  UrlShortenerService.warmUpServer();
   runApp(const QuickLinkerApp());
 }
 
