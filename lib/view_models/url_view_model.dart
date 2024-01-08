@@ -27,12 +27,6 @@ class UrlViewModel with ChangeNotifier {
     _initializeConnectivity();
   }
 
-  @override
-  void dispose() {
-    _connectivityService.dispose();
-    super.dispose();
-  }
-
   Future<void> _initializeConnectivity() async {
     bool initialConnectivity = await _connectivityService.checkConnectivity();
 
