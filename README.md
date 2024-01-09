@@ -1,6 +1,8 @@
 # QuickLinker - A Flutter URL Shortening Application
 
-<img src="assets/icons/quicklinker-logo.png" alt="QuickLinker Logo" width="200"/>
+<p align="center">
+    <img src="assets/icons/quicklinker-logo.png" alt="QuickLinker Logo" width="150"/>
+</p>
 
 ## Introduction
 
@@ -8,9 +10,9 @@ QuickLinker is a Flutter-based application engineered to streamline the process 
 It provides an intuitive interface for users to quickly shorten their links, with the added
 convenience of offline access to their URL history.
 
-> This is not just a technical showcase but also a testament to clean architecture and 
-user-centric design in Flutter applications. It stands as a public testament to efficient
-problem-solving through technology.
+> This is not just a technical showcase but also a testament to clean architecture and
+> user-centric design in Flutter applications. It stands as a public testament to efficient
+> problem-solving through technology.
 
 ## Technical Overview
 
