@@ -88,3 +88,10 @@ QuickLinker uses custom icons and splash screens for a branded experience. To ge
 flutter pub run flutter_launcher_icons:main
 flutter pub run flutter_native_splash:create
 ```
+
+## License
+
+[![License](http://img.shields.io/:license-mit-blue.svg?style=flat-square)](http://badges.mit-license.org)
+
+- **[MIT license](LICENSE)**
+- Copyright 2024 © Juan Alegría
