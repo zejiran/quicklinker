@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:http/http.dart' as http;
 
+// TODO: replace this with a functional shortener service
 class UrlShortenerService {
   static const String _baseUrl =
       'https://url-shortener-server.onrender.com/api/alias';
