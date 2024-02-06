@@ -3,7 +3,7 @@ bool isValidUrl(String url) {
 }
 
 String ensureHttpPrefix(String url) {
-  if (!url.startsWith(RegExp(r'https?:\/\/'))) {
+  if (!url.startsWith(RegExp(r'https?://'))) {
     url = 'https://$url';
   }
   return url;
