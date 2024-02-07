@@ -16,6 +16,8 @@ convenience of offline access to their URL history.
 
 ## Technical Overview
 
+<a href="https://youtu.be/Zek4VY7INGQ"><strong>Demo Video »</strong></a>
+
 ### Project Structure
 
 The application is structured to emphasize readability and scalability. It's organized into logical
